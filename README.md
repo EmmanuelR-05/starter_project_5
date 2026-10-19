@@ -2,8 +2,7 @@
 
 A Django REST API for generating and solving Boggle games, managing player
 sessions, and saving leaderboard results. This repository covers the backend
-assignment; React/frontend integration is planned for the next assignment.
-
+assignment.
 ## Requirements
 
 - Python 3.11 or newer
