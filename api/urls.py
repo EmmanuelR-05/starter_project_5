@@ -2,6 +2,7 @@ from django.urls import path
 
 from .views import (
     CreateGameBySizeView,
+    DictionaryLanguagesView,
     DeleteGameView,
     DeleteLeaderBoardEntryView,
     GameDetailView,
@@ -10,9 +11,20 @@ from .views import (
     GameWordsView,
     JoinGameView,
     LeaderBoardEntryDetailView,
+    LoginView,
+    LogoutView,
+    PlayerSessionFinishView,
+    PlayerSessionStartView,
+    PlayerSessionWordsView,
+    RegisterView,
 )
 
 urlpatterns = [
+    path("dictionaries/", DictionaryLanguagesView.as_view(), name="dictionary-languages"),
+    path("auth/register/", RegisterView.as_view(), name="auth-register"),
+    path("auth/token/", LoginView.as_view(), name="auth-token"),
+    path("auth/logout/", LogoutView.as_view(), name="auth-logout"),
+
     # Create a random game of a given size       GET /api/game/4/
     path("game/<int:size>/", CreateGameBySizeView.as_view(), name="create-game-by-size"),
 
@@ -28,6 +40,12 @@ urlpatterns = [
     # Extras
     path("games/<uuid:id>/join/", JoinGameView.as_view(), name="game-join"),
     path("games/<uuid:id>/words/", GameWordsView.as_view(), name="game-words"),
+    path("sessions/<int:player_id>/start/", PlayerSessionStartView.as_view(),
+         name="session-start"),
+    path("sessions/<int:player_id>/words/", PlayerSessionWordsView.as_view(),
+         name="session-words"),
+    path("sessions/<int:player_id>/finish/", PlayerSessionFinishView.as_view(),
+         name="session-finish"),
 
     # Leaderboard for a game (GET) / add entry (POST)
     path("games/<uuid:id>/leaderboard/", GameLeaderBoardView.as_view(), name="game-leaderboard"),

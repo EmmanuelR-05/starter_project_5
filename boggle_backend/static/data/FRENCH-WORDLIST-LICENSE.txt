@@ -1,0 +1,20 @@
+French word-list attribution and license
+
+This word list is derived from the French "large" word list in wordfreq:
+https://github.com/rspeer/wordfreq/tree/912caf64b657478d1dff1138efdc078947d54bb1/wordfreq/data
+
+Copyright 2022 Robyn Speer. The source wordfreq data is distributed under the
+Creative Commons Attribution-ShareAlike 4.0 International license (CC BY-SA
+4.0): https://creativecommons.org/licenses/by-sa/4.0/
+
+This adapted word list is also distributed under CC BY-SA 4.0. The data was
+adapted by retaining alphabetic French tokens of at least three characters,
+normalizing accents to ASCII for compatibility with the game's letter tiles,
+and sorting and deduplicating the results.
+
+The wordfreq data combines information from multiple sources. Its attribution
+notices are documented at:
+https://github.com/rspeer/wordfreq/blob/912caf64b657478d1dff1138efdc078947d54bb1/NOTICE.md
+These include Google Books Ngram data, the Leeds Internet Corpus, Wikipedia,
+ParaCrawl, and OPUS OpenSubtitles 2018. The wordfreq project asks that Robyn
+Speer be credited by that name.

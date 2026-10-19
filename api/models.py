@@ -3,6 +3,7 @@ import uuid
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator
 from django.db import models
+from django.db.models import Q
 
 
 class Game(models.Model):
@@ -26,6 +27,17 @@ class Player(models.Model):
     score = models.IntegerField(default=0)
     completed = models.BooleanField(default=False)
     joined_at = models.DateTimeField(auto_now_add=True)
+    started_at = models.DateTimeField(null=True, blank=True)
+    completed_at = models.DateTimeField(null=True, blank=True)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=("game", "user"),
+                condition=Q(completed=False),
+                name="unique_active_player_per_game",
+            )
+        ]
 
 
 class LeaderBoard(models.Model):
@@ -44,6 +56,7 @@ class LeaderBoardEntry(models.Model):
                              related_name="boogle_leaderboard_entries", null=True, blank=True)
     player_name = models.CharField(max_length=100, default="Anonymous")
     words_found_count = models.PositiveIntegerField(default=0)
+    words_not_found_count = models.PositiveIntegerField(default=0)
     total_time_seconds = models.PositiveIntegerField(default=0)
     score = models.IntegerField(default=0)
     saved_at = models.DateTimeField(auto_now_add=True)
@@ -60,6 +73,14 @@ class ValidWord(models.Model):
 
 
 class FoundWord(models.Model):
-    player = models.ForeignKey(Player, on_delete=models.CASCADE)
+    player = models.ForeignKey(Player, on_delete=models.CASCADE, related_name="found_words")
     word = models.CharField(max_length=50)
     points = models.IntegerField()
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=("player", "word"),
+                name="unique_found_word_per_player",
+            )
+        ]
